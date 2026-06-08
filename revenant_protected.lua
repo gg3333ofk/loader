@@ -1,19 +1,19 @@
---https://v3rmillion.net/showthread.php?tid=1182163
+local game_cloneref = cloneref(game)
 local library = {}
 library.Flags = {}
 library.DefaultColor = Color3.fromRGB(56, 207, 154)
 
-local Players = game:GetService("Players")
+local Players = game_cloneref:GetService("Players")
 local Player = Players.LocalPlayer
 
 local Mouse = Player:GetMouse()
 
-local TweenService = game:GetService("TweenService")
-local UserInputService = game:GetService("UserInputService")
+local TweenService = game_cloneref:GetService("TweenService")
+local UserInputService = game_cloneref:GetService("UserInputService")
 
 local Blacklist = {Enum.KeyCode.Unknown, Enum.KeyCode.CapsLock, Enum.KeyCode.Escape, Enum.KeyCode.Tab, Enum.KeyCode.Return, Enum.KeyCode.Backspace, Enum.KeyCode.Space, Enum.KeyCode.W, Enum.KeyCode.A, Enum.KeyCode.S, Enum.KeyCode.D}
 
-for _,v in pairs(game:GetService("CoreGui"):GetChildren()) do
+for _,v in pairs(game_cloneref:GetService("CoreGui"):GetChildren()) do
     if v.Name == "Revenant" then
         v:Destroy()
     end
@@ -26,18 +26,18 @@ function library:GetXY(GuiObject)
 end
 
 function library:Toggle()
-    for _,v in pairs(game:GetService("CoreGui"):GetChildren()) do
+    for _,v in pairs(game_cloneref:GetService("CoreGui"):GetChildren()) do
         if v.Name == "Revenant" then
             v.Enabled = not v.Enabled
         end
     end
 end
 
-if not game:GetService("CoreGui"):FindFirstChild("NotificationLibrary") then
+if not game_cloneref:GetService("CoreGui"):FindFirstChild("NotificationLibrary") then
 local notificationLibrary = Instance.new("ScreenGui")
 notificationLibrary.Name = "NotificationLibrary"
 notificationLibrary.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-notificationLibrary.Parent = game:GetService("CoreGui")
+notificationLibrary.Parent = game_cloneref:GetService("CoreGui")
 
 local notificationHolder = Instance.new("Frame")
 notificationHolder.Name = "NotificationHolder"
@@ -63,7 +63,7 @@ notificationUIPadding.PaddingLeft = UDim.new(0, 5)
 notificationUIPadding.Parent = notificationHolder
 end
 
-local NotificationLib = game:GetService("CoreGui"):FindFirstChild("NotificationLibrary")
+local NotificationLib = game_cloneref:GetService("CoreGui"):FindFirstChild("NotificationLibrary")
 local Holder = NotificationLib:FindFirstChild("NotificationHolder")
 
 function library:Notification(NotificationInfo)
@@ -148,7 +148,7 @@ Info.Text = Info.Text or "Revenant"
 
 local Pos = 0.05
 
-for _,v in pairs(game:GetService("CoreGui"):GetChildren()) do
+for _,v in pairs(game_cloneref:GetService("CoreGui"):GetChildren()) do
     if v.Name == "Revenant" then
         Pos = Pos + 0.12
     end
@@ -158,7 +158,7 @@ local insidewindow = {}
 
 local revenant = Instance.new("ScreenGui")
 revenant.Name = "Revenant"
-revenant.Parent = game:GetService("CoreGui")
+revenant.Parent = game_cloneref:GetService("CoreGui")
 
 local WindowOpened = Instance.new("BoolValue", revenant)
 WindowOpened.Value = true
@@ -921,8 +921,8 @@ keybindButton.MouseButton1Click:Connect(function()
     if KeybindConnection then KeybindConnection:Disconnect() end
     Changing = true
     keybindText.Text = "..."
-    KeybindConnection = UserInputService.InputBegan:Connect(function(Key, gameProcessed)
-        if not table.find(Blacklist, Key.KeyCode) and not gameProcessed then
+    KeybindConnection = UserInputService.InputBegan:Connect(function(Key, game_clonerefProcessed)
+        if not table.find(Blacklist, Key.KeyCode) and not game_clonerefProcessed then
             KeybindConnection:Disconnect()
             keybindText.Text = Key.KeyCode.Name
             PressKey = Key.KeyCode
@@ -932,8 +932,8 @@ keybindButton.MouseButton1Click:Connect(function()
     end)
 end)
 
-UserInputService.InputBegan:Connect(function(Key, gameProcessed)
-    if not Changing and Key.KeyCode == PressKey and not gameProcessed then
+UserInputService.InputBegan:Connect(function(Key, game_clonerefProcessed)
+    if not Changing and Key.KeyCode == PressKey and not game_clonerefProcessed then
         pcall(Info.Callback)
     end
 end)
