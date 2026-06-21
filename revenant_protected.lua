@@ -1,7 +1,7 @@
 local game_cloneref = cloneref(game)
 local library = {}
 library.Flags = {}
-library.DefaultColor = Color3.fromRGB(56, 207, 154)
+library.DefaultColor = Color3.fromRGB(80, 80, 255)
 
 local Players = game_cloneref:GetService("Players")
 local Player = Players.LocalPlayer
