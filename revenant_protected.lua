@@ -1,7 +1,10 @@
+--https://v3rmillion.net/showthread.php?tid=1182163
+
 local game_cloneref = cloneref(game)
+
 local library = {}
 library.Flags = {}
-library.DefaultColor = Color3.fromRGB(40, 100, 255)
+library.DefaultColor = Color3.fromRGB(56, 207, 154)
 
 local Players = game_cloneref:GetService("Players")
 local Player = Players.LocalPlayer
@@ -14,7 +17,7 @@ local UserInputService = game_cloneref:GetService("UserInputService")
 local Blacklist = {Enum.KeyCode.Unknown, Enum.KeyCode.CapsLock, Enum.KeyCode.Escape, Enum.KeyCode.Tab, Enum.KeyCode.Return, Enum.KeyCode.Backspace, Enum.KeyCode.Space, Enum.KeyCode.W, Enum.KeyCode.A, Enum.KeyCode.S, Enum.KeyCode.D}
 
 for _,v in pairs(game_cloneref:GetService("CoreGui"):GetChildren()) do
-    if tonumber(v) ~= nil and tonumber(v) <= 12345 then
+    if v.Name == "Revenant" then
         v:Destroy()
     end
 end
@@ -27,21 +30,20 @@ end
 
 function library:Toggle()
     for _,v in pairs(game_cloneref:GetService("CoreGui"):GetChildren()) do
-        if tonumber(v.Name) ~= nil and tonumber(v.Name) <= 12345 then
+        if v.Name == "Revenant" then
             v.Enabled = not v.Enabled
         end
     end
 end
 
 if not game_cloneref:GetService("CoreGui"):FindFirstChild("NotificationLibrary") then
-
-notificationLibrary = Instance.new("ScreenGui")
-notificationLibrary.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+local notificationLibrary = Instance.new("ScreenGui")
+notificationLibrary.Name = "NotificationLibrary"
 notificationLibrary.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 notificationLibrary.Parent = game_cloneref:GetService("CoreGui")
 
-notificationHolder = Instance.new("Frame")
-notificationHolder.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+local notificationHolder = Instance.new("Frame")
+notificationHolder.Name = "NotificationHolder"
 notificationHolder.AnchorPoint = Vector2.new(0, 0.5)
 notificationHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 notificationHolder.BackgroundTransparency = 1
@@ -50,7 +52,7 @@ notificationHolder.Size = UDim2.fromScale(0.8, 1)
 notificationHolder.Parent = notificationLibrary
 
 local notificationUIListLayout = Instance.new("UIListLayout")
-notificationUIListLayout.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+notificationUIListLayout.Name = "NotificationUIListLayout"
 notificationUIListLayout.FillDirection = Enum.FillDirection.Vertical
 notificationUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 notificationUIListLayout.Padding = UDim.new(0, 4)
@@ -58,14 +60,14 @@ notificationUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
 notificationUIListLayout.Parent = notificationHolder
 
 local notificationUIPadding = Instance.new("UIPadding")
-notificationUIPadding.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+notificationUIPadding.Name = "NotificationUIPadding"
 notificationUIPadding.PaddingBottom = UDim.new(0, 9)
 notificationUIPadding.PaddingLeft = UDim.new(0, 5)
 notificationUIPadding.Parent = notificationHolder
 end
 
-local NotificationLib = notificationLibrary
-local Holder = notificationHolder;
+local NotificationLib = game_cloneref:GetService("CoreGui"):FindFirstChild("NotificationLibrary")
+local Holder = NotificationLib:FindFirstChild("NotificationHolder")
 
 function library:Notification(NotificationInfo)
 NotificationInfo.Text = NotificationInfo.Text or "This is a notification."
@@ -73,7 +75,7 @@ NotificationInfo.Duration = NotificationInfo.Duration or 5
 NotificationInfo.Color = NotificationInfo.Color or library.DefaultColor
 
 local notificationText = Instance.new("TextLabel")
-notificationText.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+notificationText.Name = "NotificationText"
 notificationText.ClipsDescendants = true
 notificationText.Font = Enum.Font.GothamBold
 notificationText.Text = NotificationInfo.Text
@@ -86,7 +88,7 @@ notificationText.Size = UDim2.fromOffset(0, 38)
 notificationText.Parent = Holder
 
 local outerFrame = Instance.new("Frame")
-outerFrame.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+outerFrame.Name = "OuterFrame"
 outerFrame.AnchorPoint = Vector2.new(0, 1)
 outerFrame.BackgroundColor3 = NotificationInfo.Color
 outerFrame.BorderSizePixel = 0
@@ -96,12 +98,12 @@ outerFrame.ZIndex = 2
 outerFrame.Parent = notificationText
 
 local notificationUICorner = Instance.new("UICorner")
-notificationUICorner.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+notificationUICorner.Name = "NotificationUICorner"
 notificationUICorner.CornerRadius = UDim.new(0, 4)
 notificationUICorner.Parent = notificationText
 
 local innerFrame = Instance.new("Frame")
-innerFrame.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+innerFrame.Name = "InnerFrame"
 innerFrame.AnchorPoint = Vector2.new(0, 1)
 innerFrame.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
 innerFrame.BorderSizePixel = 0
@@ -131,14 +133,13 @@ end
 local Request = syn and syn.request or http and http.request or http_request or request or httprequest
 local getcustomasset = getcustomasset or getsynasset
 
-local name = math.random(-12345, 12345);
-if not isfolder(name) then
-    makefolder(name)
+if not isfolder("Revenant") then
+    makefolder("Revenant")
     local Circle = Request({
 	Url = "https://github.com/Rain-Design/Libraries/blob/main/Icon/Circle.png?raw=true",
 	Method = "GET"
 	})
-	writefile("name".."/Circle.png", Circle.Body)
+	writefile("Revenant/Circle.png", Circle.Body)
 	library:Notification({
         Text = "Downloaded Toggle Asset.",
         Duration = 3
@@ -151,7 +152,7 @@ Info.Text = Info.Text or "Revenant"
 local Pos = 0.05
 
 for _,v in pairs(game_cloneref:GetService("CoreGui"):GetChildren()) do
-    if tonumber(v.Name) ~= nil and tonumber(v.Name) <= 12345 then
+    if v.Name == "Revenant" then
         Pos = Pos + 0.12
     end
 end
@@ -159,14 +160,14 @@ end
 local insidewindow = {}
 
 local revenant = Instance.new("ScreenGui")
-revenant.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+revenant.Name = "Revenant"
 revenant.Parent = game_cloneref:GetService("CoreGui")
 
 local WindowOpened = Instance.new("BoolValue", revenant)
 WindowOpened.Value = true
 
 local topbar = Instance.new("Frame")
-topbar.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+topbar.Name = "Topbar"
 topbar.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
 topbar.Position = UDim2.fromScale(Pos, 0.1)
 topbar.Size = UDim2.fromOffset(225, 38)
@@ -209,14 +210,14 @@ UserInputService.InputChanged:Connect(function(input)
 end)
 
 local uICorner = Instance.new("UICorner")
-uICorner.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+uICorner.Name = "UICorner"
 uICorner.CornerRadius = UDim.new(0, 4)
 uICorner.Parent = topbar
 
 local BackgroundSize = 0
 
 local backgroundFrame = Instance.new("Frame")
-backgroundFrame.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+backgroundFrame.Name = "BackgroundFrame"
 backgroundFrame.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 backgroundFrame.BorderSizePixel = 0
 backgroundFrame.ClipsDescendants = false
@@ -225,12 +226,12 @@ backgroundFrame.Size = UDim2.fromOffset(225, 0)
 backgroundFrame.Parent = topbar
 
 local uICorner1 = Instance.new("UICorner")
-uICorner1.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+uICorner1.Name = "UICorner"
 uICorner1.CornerRadius = UDim.new(0, 4)
 uICorner1.Parent = backgroundFrame
 
 local fixLine = Instance.new("Frame")
-fixLine.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+fixLine.Name = "FixLine"
 fixLine.AnchorPoint = Vector2.new(0.5, 0)
 fixLine.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 fixLine.BorderSizePixel = 0
@@ -240,7 +241,7 @@ fixLine.Parent = backgroundFrame
 fixLine.ZIndex = 2
 
 local itemContainer = Instance.new("Frame")
-itemContainer.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+itemContainer.Name = "ItemContainer"
 itemContainer.AnchorPoint = Vector2.new(0.5, 0)
 itemContainer.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 itemContainer.BackgroundTransparency = 1
@@ -266,7 +267,7 @@ itemContainer.ChildRemoved:Connect(function(v)
 end)
 
 local uIListLayout = Instance.new("UIListLayout")
-uIListLayout.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+uIListLayout.Name = "UIListLayout"
 uIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 uIListLayout.Parent = itemContainer
 
@@ -275,18 +276,18 @@ Info.Text = Info.Text or "Button"
 Info.Callback = Info.Callback or function() end
 
 local button = Instance.new("Frame")
-button.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+button.Name = "Button"
 button.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 button.Size = UDim2.fromOffset(225, 38)
 button.Parent = itemContainer
 
 local uICorner2 = Instance.new("UICorner")
-uICorner2.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+uICorner2.Name = "UICorner"
 uICorner2.CornerRadius = UDim.new(0, 4)
 uICorner2.Parent = button
 
 local fixLine1 = Instance.new("Frame")
-fixLine1.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+fixLine1.Name = "FixLine"
 fixLine1.AnchorPoint = Vector2.new(0.5, 1)
 fixLine1.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 fixLine1.BorderSizePixel = 0
@@ -295,7 +296,7 @@ fixLine1.Size = UDim2.fromOffset(225, 4)
 fixLine1.Parent = button
 
 local buttonTextButton = Instance.new("TextButton")
-buttonTextButton.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+buttonTextButton.Name = "ButtonTextButton"
 buttonTextButton.Font = Enum.Font.GothamBold
 buttonTextButton.Text = ""
 buttonTextButton.TextColor3 = Color3.fromRGB(214, 214, 214)
@@ -307,7 +308,7 @@ buttonTextButton.Size = UDim2.fromOffset(225, 38)
 buttonTextButton.Parent = button
 
 local buttonTextLabel = Instance.new("TextLabel")
-buttonTextLabel.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+buttonTextLabel.Name = "ButtonTextLabel"
 buttonTextLabel.Font = Enum.Font.GothamBold
 buttonTextLabel.Text = Info.Text
 buttonTextLabel.TextColor3 = Color3.fromRGB(214, 214, 214)
@@ -340,18 +341,18 @@ Info.OnConfirm = Info.OnConfirm or function() end
 Info.OnCancel = Info.OnCancel or function() end
     
 local prompt = Instance.new("Frame")
-prompt.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+prompt.Name = "Prompt"
 prompt.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 prompt.Size = UDim2.fromOffset(225, 38)
 prompt.Parent = itemContainer
 
 local promptUICorner = Instance.new("UICorner")
-promptUICorner.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+promptUICorner.Name = "PromptUICorner"
 promptUICorner.CornerRadius = UDim.new(0, 4)
 promptUICorner.Parent = prompt
 
 local promptFixLine = Instance.new("Frame")
-promptFixLine.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+promptFixLine.Name = "PromptFixLine"
 promptFixLine.AnchorPoint = Vector2.new(0.5, 1)
 promptFixLine.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 promptFixLine.BorderSizePixel = 0
@@ -360,7 +361,7 @@ promptFixLine.Size = UDim2.fromOffset(225, 4)
 promptFixLine.Parent = prompt
 
 local promptTextLabel = Instance.new("TextLabel")
-promptTextLabel.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+promptTextLabel.Name = "PromptTextLabel"
 promptTextLabel.Font = Enum.Font.GothamBold
 promptTextLabel.Text = Info.Text
 promptTextLabel.TextColor3 = Color3.fromRGB(214, 214, 214)
@@ -373,7 +374,7 @@ promptTextLabel.Size = UDim2.fromOffset(214, 38)
 promptTextLabel.Parent = prompt
 
 local cancelPromptButton = Instance.new("ImageButton")
-cancelPromptButton.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+cancelPromptButton.Name = "CancelPromptButton"
 cancelPromptButton.Image = "http://www.roblox.com/asset/?id=6031094678"
 cancelPromptButton.ImageColor3 = Color3.fromRGB(214, 214, 214)
 cancelPromptButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -383,7 +384,7 @@ cancelPromptButton.Size = UDim2.fromOffset(17, 17)
 cancelPromptButton.Parent = prompt
 
 local confirmPromptButton = Instance.new("ImageButton")
-confirmPromptButton.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+confirmPromptButton.Name = "ConfirmPromptButton"
 confirmPromptButton.Image = "rbxassetid://7733715400"
 confirmPromptButton.ImageColor3 = Color3.fromRGB(214, 214, 214)
 confirmPromptButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -420,18 +421,18 @@ Info.Color = Info.Color or Color3.fromRGB(214, 214, 214)
 local insidelabel = {}
 
 local label = Instance.new("Frame")
-label.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+label.Name = "Label"
 label.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 label.Size = UDim2.fromOffset(225, 38)
 label.Parent = itemContainer
 
 local labelUICorner = Instance.new("UICorner")
-labelUICorner.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+labelUICorner.Name = "LabelUICorner"
 labelUICorner.CornerRadius = UDim.new(0, 4)
 labelUICorner.Parent = label
 
 local labelFixLine = Instance.new("Frame")
-labelFixLine.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+labelFixLine.Name = "LabelFixLine"
 labelFixLine.AnchorPoint = Vector2.new(0.5, 1)
 labelFixLine.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 labelFixLine.BorderSizePixel = 0
@@ -440,7 +441,7 @@ labelFixLine.Size = UDim2.fromOffset(225, 4)
 labelFixLine.Parent = label
 
 local labelTextLabel = Instance.new("TextLabel")
-labelTextLabel.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+labelTextLabel.Name = "LabelTextLabel"
 labelTextLabel.Text = Info.Text
 labelTextLabel.Font = Enum.Font.GothamBold
 labelTextLabel.TextColor3 = Info.Color
@@ -486,18 +487,18 @@ library.Flags[Info.Flag] = Info.Default
 local Toggled = false
     
 local toggle = Instance.new("Frame")
-toggle.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+toggle.Name = "Toggle"
 toggle.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 toggle.Size = UDim2.fromOffset(225, 38)
 toggle.Parent = itemContainer
 
 local uICorner = Instance.new("UICorner")
-uICorner.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+uICorner.Name = "UICorner"
 uICorner.CornerRadius = UDim.new(0, 4)
 uICorner.Parent = toggle
 
 local fixLineToggle = Instance.new("Frame")
-fixLineToggle.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+fixLineToggle.Name = "FixLine"
 fixLineToggle.AnchorPoint = Vector2.new(0.5, 1)
 fixLineToggle.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 fixLineToggle.BorderSizePixel = 0
@@ -506,7 +507,7 @@ fixLineToggle.Size = UDim2.fromOffset(225, 4)
 fixLineToggle.Parent = toggle
 
 local toggleTextButton = Instance.new("TextButton")
-toggleTextButton.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+toggleTextButton.Name = "ToggleTextButton"
 toggleTextButton.Font = Enum.Font.GothamBold
 toggleTextButton.Text = ""
 toggleTextButton.TextColor3 = Color3.fromRGB(214, 214, 214)
@@ -518,7 +519,7 @@ toggleTextButton.Size = UDim2.fromOffset(225, 38)
 toggleTextButton.Parent = toggle
 
 local toggleTextLabel = Instance.new("TextLabel")
-toggleTextLabel.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+toggleTextLabel.Name = "ToggleTextLabel"
 toggleTextLabel.Font = Enum.Font.GothamBold
 toggleTextLabel.Text = Info.Text
 toggleTextLabel.TextColor3 = Color3.fromRGB(214, 214, 214)
@@ -531,7 +532,7 @@ toggleTextLabel.Size = UDim2.fromOffset(214, 38)
 toggleTextLabel.Parent = toggle
 
 local outerFrame = Instance.new("Frame")
-outerFrame.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+outerFrame.Name = "OuterFrame"
 outerFrame.BackgroundColor3 = Color3.fromRGB(62, 62, 62)
 outerFrame.BorderSizePixel = 0
 outerFrame.Position = UDim2.fromScale(0.782, 0.263)
@@ -539,12 +540,12 @@ outerFrame.Size = UDim2.fromOffset(38, 17)
 outerFrame.Parent = toggle
 
 local uICorner1 = Instance.new("UICorner")
-uICorner1.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+uICorner1.Name = "UICorner"
 uICorner1.CornerRadius = UDim.new(1, 0)
 uICorner1.Parent = outerFrame
 
 local innerFrame = Instance.new("ImageLabel")
-innerFrame.Name = math.random(-12345, 12345)math.random(-12345, 12345)
+innerFrame.Name = "InnerFrame"
 innerFrame.Image = getcustomasset("Revenant/Circle.png")
 innerFrame.ResampleMode = "Pixelated"
 innerFrame.ImageColor3 = Color3.fromRGB(255, 255, 255)
@@ -598,18 +599,18 @@ local insidedropdown = {}
 local DropdownSize = 0
     
 local dropdown = Instance.new("Frame")
-dropdown.Name = math.random(-12345, 12345)"Dropdown"
+dropdown.Name = "Dropdown"
 dropdown.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 dropdown.Size = UDim2.fromOffset(225, 38)
 dropdown.Parent = itemContainer
 
 local dropdownUICorner = Instance.new("UICorner")
-dropdownUICorner.Name = math.random(-12345, 12345)"DropdownUICorner"
+dropdownUICorner.Name = "DropdownUICorner"
 dropdownUICorner.CornerRadius = UDim.new(0, 4)
 dropdownUICorner.Parent = dropdown
 
 local dropdownFixLine = Instance.new("Frame")
-dropdownFixLine.Name = math.random(-12345, 12345)"DropdownFixLine"
+dropdownFixLine.Name = "DropdownFixLine"
 dropdownFixLine.AnchorPoint = Vector2.new(0.5, 1)
 dropdownFixLine.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 dropdownFixLine.BorderSizePixel = 0
@@ -619,7 +620,7 @@ dropdownFixLine.Size = UDim2.fromOffset(225, 4)
 dropdownFixLine.Parent = dropdown
 
 local dropdownButton = Instance.new("TextButton")
-dropdownButton.Name = math.random(-12345, 12345)"DropdownButton"
+dropdownButton.Name = "DropdownButton"
 dropdownButton.Font = Enum.Font.GothamBold
 dropdownButton.Text = ""
 dropdownButton.TextColor3 = Color3.fromRGB(214, 214, 214)
@@ -631,7 +632,7 @@ dropdownButton.Size = UDim2.fromOffset(225, 38)
 dropdownButton.Parent = dropdown
 
 local dropdownText = Instance.new("TextLabel")
-dropdownText.Name = math.random(-12345, 12345)"DropdownText"
+dropdownText.Name = "DropdownText"
 dropdownText.Font = Enum.Font.GothamBold
 dropdownText.Text = Info.Text
 dropdownText.TextColor3 = Color3.fromRGB(214, 214, 214)
@@ -644,7 +645,7 @@ dropdownText.Size = UDim2.fromOffset(214, 38)
 dropdownText.Parent = dropdown
 
 local dropdownContainerButton = Instance.new("ImageLabel")
-dropdownContainerButton.Name = math.random(-12345, 12345)"DropdownContainerButton"
+dropdownContainerButton.Name = "DropdownContainerButton"
 dropdownContainerButton.Image = "rbxassetid://7733717447"
 dropdownContainerButton.ImageColor3 = Color3.fromRGB(129, 129, 129)
 dropdownContainerButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -655,7 +656,7 @@ dropdownContainerButton.Parent = dropdown
 
 local dropdownContainerBackground = Instance.new("Frame")
 dropdownContainerBackground.Visible = true
-dropdownContainerBackground.Name = math.random(-12345, 12345)"DropdownContainerBackground"
+dropdownContainerBackground.Name = "DropdownContainerBackground"
 dropdownContainerBackground.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 dropdownContainerBackground.BorderSizePixel = 0
 dropdownContainerBackground.Position = UDim2.fromScale(0, 1)
@@ -665,7 +666,7 @@ dropdownContainerBackground.ZIndex = -1
 dropdownContainerBackground.Parent = dropdown
 
 local dropdownFixLine1 = Instance.new("Frame")
-dropdownFixLine1.Name = math.random(-12345, 12345)"DropdownFixLine"
+dropdownFixLine1.Name = "DropdownFixLine"
 dropdownFixLine1.AnchorPoint = Vector2.new(0.5, 0)
 dropdownFixLine1.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 dropdownFixLine1.BorderSizePixel = 0
@@ -676,13 +677,13 @@ dropdownFixLine1.Visible = false
 dropdownFixLine1.Parent = dropdownContainerBackground
 
 local dropdownUICorner1 = Instance.new("UICorner")
-dropdownUICorner1.Name = math.random(-12345, 12345)"DropdownUICorner"
+dropdownUICorner1.Name = "DropdownUICorner"
 dropdownUICorner1.CornerRadius = UDim.new(0, 4)
 dropdownUICorner1.Parent = dropdownContainerBackground
 
 local dropdownContainer = Instance.new("Frame")
 dropdownContainer.Visible = true
-dropdownContainer.Name = math.random(-12345, 12345)"DropdownContainer"
+dropdownContainer.Name = "DropdownContainer"
 dropdownContainer.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 dropdownContainer.BackgroundTransparency = 1
 dropdownContainer.ClipsDescendants = true
@@ -692,7 +693,7 @@ dropdownContainer.ZIndex = 2
 dropdownContainer.Parent = dropdownContainerBackground
 
 local dropdownUIListLayout = Instance.new("UIListLayout")
-dropdownUIListLayout.Name = math.random(-12345, 12345)"DropdownUIListLayout"
+dropdownUIListLayout.Name = "DropdownUIListLayout"
 dropdownUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 dropdownUIListLayout.Parent = dropdownContainer
 
@@ -722,14 +723,14 @@ function insidedropdown:Button(Info2)
 Info2.Text = Info2.Text or "Option"
 
 local buttonDropdown = Instance.new("Frame")
-buttonDropdown.Name = math.random(-12345, 12345)"ButtonDropdown"
+buttonDropdown.Name = "ButtonDropdown"
 buttonDropdown.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 buttonDropdown.Size = UDim2.fromOffset(225, 27)
 buttonDropdown.ZIndex = 3
 buttonDropdown.Parent = dropdownContainer
 
 local dropdownButtonTextButton = Instance.new("TextButton")
-dropdownButtonTextButton.Name = math.random(-12345, 12345)"DropdownButtonTextButton"
+dropdownButtonTextButton.Name = "DropdownButtonTextButton"
 dropdownButtonTextButton.Font = Enum.Font.SourceSans
 dropdownButtonTextButton.Text = ""
 dropdownButtonTextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
@@ -741,7 +742,7 @@ dropdownButtonTextButton.ZIndex = 2
 dropdownButtonTextButton.Parent = buttonDropdown
 
 local dropdown2Text = Instance.new("TextLabel")
-dropdown2Text.Name = math.random(-12345, 12345)"DropdownText"
+dropdown2Text.Name = "DropdownText"
 dropdown2Text.Font = Enum.Font.GothamBold
 dropdown2Text.Text = Info2.Text
 dropdown2Text.TextColor3 = Color3.fromRGB(214, 214, 214)
@@ -756,7 +757,7 @@ dropdown2Text.ZIndex = 3
 dropdown2Text.Parent = buttonDropdown
 
 local dropdownButtonUICorner = Instance.new("UICorner")
-dropdownButtonUICorner.Name = math.random(-12345, 12345)"DropdownButtonUICorner"
+dropdownButtonUICorner.Name = "DropdownButtonUICorner"
 dropdownButtonUICorner.CornerRadius = UDim.new(0, 4)
 dropdownButtonUICorner.Parent = buttonDropdown
 
@@ -817,18 +818,18 @@ Info.Callback = Info.Callback or function() end
 local PressKey = Info.Default
     
 local keybind = Instance.new("Frame")
-keybind.Name = math.random(-12345, 12345)"Keybind"
+keybind.Name = "Keybind"
 keybind.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 keybind.Size = UDim2.fromOffset(225, 38)
 keybind.Parent = itemContainer
 
 local keybindUICorner = Instance.new("UICorner")
-keybindUICorner.Name = math.random(-12345, 12345)"KeybindUICorner"
+keybindUICorner.Name = "KeybindUICorner"
 keybindUICorner.CornerRadius = UDim.new(0, 4)
 keybindUICorner.Parent = keybind
 
 local keybindFixLine = Instance.new("Frame")
-keybindFixLine.Name = math.random(-12345, 12345)"KeybindFixLine"
+keybindFixLine.Name = "KeybindFixLine"
 keybindFixLine.AnchorPoint = Vector2.new(0.5, 1)
 keybindFixLine.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 keybindFixLine.BorderSizePixel = 0
@@ -837,7 +838,7 @@ keybindFixLine.Size = UDim2.fromOffset(225, 4)
 keybindFixLine.Parent = keybind
 
 local keybindButton = Instance.new("TextButton")
-keybindButton.Name = math.random(-12345, 12345)"KeybindButton"
+keybindButton.Name = "KeybindButton"
 keybindButton.Font = Enum.Font.GothamBold
 keybindButton.Text = ""
 keybindButton.TextColor3 = Color3.fromRGB(214, 214, 214)
@@ -849,7 +850,7 @@ keybindButton.Size = UDim2.fromOffset(225, 38)
 keybindButton.Parent = keybind
 
 local keybindTextLabel = Instance.new("TextLabel")
-keybindTextLabel.Name = math.random(-12345, 12345)"KeybindTextLabel"
+keybindTextLabel.Name = "KeybindTextLabel"
 keybindTextLabel.Font = Enum.Font.GothamBold
 keybindTextLabel.Text = Info.Text
 keybindTextLabel.TextColor3 = Color3.fromRGB(214, 214, 214)
@@ -862,7 +863,7 @@ keybindTextLabel.Size = UDim2.fromOffset(214, 38)
 keybindTextLabel.Parent = keybind
 
 local keybindFixHolder = Instance.new("Frame")
-keybindFixHolder.Name = math.random(-12345, 12345)"KeybindFixHolder"
+keybindFixHolder.Name = "KeybindFixHolder"
 keybindFixHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 keybindFixHolder.BackgroundTransparency = 1
 keybindFixHolder.Position = UDim2.fromScale(0, 0.263)
@@ -870,7 +871,7 @@ keybindFixHolder.Size = UDim2.fromOffset(214, 17)
 keybindFixHolder.Parent = keybind
 
 local keybindHolder = Instance.new("Frame")
-keybindHolder.Name = math.random(-12345, 12345)"KeybindHolder"
+keybindHolder.Name = "KeybindHolder"
 keybindHolder.AnchorPoint = Vector2.new(1, 0.5)
 keybindHolder.BackgroundColor3 = Color3.fromRGB(62, 62, 62)
 keybindHolder.BorderSizePixel = 0
@@ -879,12 +880,12 @@ keybindHolder.Size = UDim2.fromOffset(38, 17)
 keybindHolder.Parent = keybindFixHolder
 
 local keybindHolderUICorner = Instance.new("UICorner")
-keybindHolderUICorner.Name = math.random(-12345, 12345)"KeybindHolderUICorner"
+keybindHolderUICorner.Name = "KeybindHolderUICorner"
 keybindHolderUICorner.CornerRadius = UDim.new(0, 4)
 keybindHolderUICorner.Parent = keybindHolder
 
 local keybindText = Instance.new("TextLabel")
-keybindText.Name = math.random(-12345, 12345)"KeybindText"
+keybindText.Name = "KeybindText"
 keybindText.Font = Enum.Font.GothamBold
 keybindText.Text = PressKey.Name
 keybindText.TextColor3 = Color3.fromRGB(214, 214, 214)
@@ -962,18 +963,18 @@ local DefaultScale = (Info.Default - Info.Minimum) / (Info.Maximum - Info.Minimu
 local insideslider = {}
     
 local slider = Instance.new("Frame")
-slider.Name = math.random(-12345, 12345)"Slider"
+slider.Name = "Slider"
 slider.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 slider.Size = UDim2.fromOffset(225, 38)
 slider.Parent = itemContainer
 
 local sliderUICorner = Instance.new("UICorner")
-sliderUICorner.Name = math.random(-12345, 12345)"SliderUICorner"
+sliderUICorner.Name = "SliderUICorner"
 sliderUICorner.CornerRadius = UDim.new(0, 4)
 sliderUICorner.Parent = slider
 
 local sliderFixLine = Instance.new("Frame")
-sliderFixLine.Name = math.random(-12345, 12345)"SliderFixLine"
+sliderFixLine.Name = "SliderFixLine"
 sliderFixLine.AnchorPoint = Vector2.new(0.5, 1)
 sliderFixLine.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 sliderFixLine.BorderSizePixel = 0
@@ -982,7 +983,7 @@ sliderFixLine.Size = UDim2.fromOffset(225, 4)
 sliderFixLine.Parent = slider
 
 local sliderText = Instance.new("TextLabel")
-sliderText.Name = math.random(-12345, 12345)"SliderText"
+sliderText.Name = "SliderText"
 sliderText.Font = Enum.Font.GothamBold
 sliderText.Text = Info.Text
 sliderText.TextColor3 = Color3.fromRGB(214, 214, 214)
@@ -995,7 +996,7 @@ sliderText.Size = UDim2.fromOffset(214, 19)
 sliderText.Parent = slider
 
 local sliderFrames = Instance.new("Frame")
-sliderFrames.Name = math.random(-12345, 12345)"SliderFrames"
+sliderFrames.Name = "SliderFrames"
 sliderFrames.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 sliderFrames.BackgroundTransparency = 1
 sliderFrames.Position = UDim2.fromScale(0.0489, 0.5)
@@ -1003,7 +1004,7 @@ sliderFrames.Size = UDim2.fromOffset(199, 10)
 sliderFrames.Parent = slider
 
 local outerSlider = Instance.new("Frame")
-outerSlider.Name = math.random(-12345, 12345)"OuterSlider"
+outerSlider.Name = "OuterSlider"
 outerSlider.BackgroundColor3 = Color3.fromRGB(62, 62, 62)
 outerSlider.BorderSizePixel = 0
 outerSlider.Position = UDim2.fromScale(-0.001, 0.458)
@@ -1011,12 +1012,12 @@ outerSlider.Size = UDim2.new(1, 0, 0, 4)
 outerSlider.Parent = sliderFrames
 
 local outerSliderUICorner = Instance.new("UICorner")
-outerSliderUICorner.Name = math.random(-12345, 12345)"OuterSliderUICorner"
+outerSliderUICorner.Name = "OuterSliderUICorner"
 outerSliderUICorner.CornerRadius = UDim.new(0, 100)
 outerSliderUICorner.Parent = outerSlider
 
 local innerSlider = Instance.new("Frame")
-innerSlider.Name = math.random(-12345, 12345)"InnerSlider"
+innerSlider.Name = "InnerSlider"
 innerSlider.BackgroundColor3 = library.DefaultColor
 innerSlider.BorderSizePixel = 0
 innerSlider.Position = UDim2.fromScale(-0.001, 0.458)
@@ -1025,12 +1026,12 @@ innerSlider.ZIndex = 2
 innerSlider.Parent = sliderFrames
 
 local outerSliderUICorner1 = Instance.new("UICorner")
-outerSliderUICorner1.Name = math.random(-12345, 12345)"OuterSliderUICorner"
+outerSliderUICorner1.Name = "OuterSliderUICorner"
 outerSliderUICorner1.CornerRadius = UDim.new(0, 100)
 outerSliderUICorner1.Parent = innerSlider
 
 local dragSlider = Instance.new("Frame")
-dragSlider.Name = math.random(-12345, 12345)"DragSlider"
+dragSlider.Name = "DragSlider"
 dragSlider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 dragSlider.Position = UDim2.new(DefaultScale, -4, 0, 2)
 dragSlider.Size = UDim2.fromOffset(9, 9)
@@ -1038,12 +1039,12 @@ dragSlider.ZIndex = 2
 dragSlider.Parent = sliderFrames
 
 local dragSliderUICorner = Instance.new("UICorner")
-dragSliderUICorner.Name = math.random(-12345, 12345)"DragSliderUICorner"
+dragSliderUICorner.Name = "DragSliderUICorner"
 dragSliderUICorner.CornerRadius = UDim.new(0, 100)
 dragSliderUICorner.Parent = dragSlider
 
 local dragSliderButton = Instance.new("TextButton")
-dragSliderButton.Name = math.random(-12345, 12345)"DragSliderButton"
+dragSliderButton.Name = "DragSliderButton"
 dragSliderButton.Font = Enum.Font.SourceSans
 dragSliderButton.Text = ""
 dragSliderButton.TextColor3 = Color3.fromRGB(0, 0, 0)
@@ -1054,7 +1055,7 @@ dragSliderButton.Size = UDim2.fromOffset(9, 9)
 dragSliderButton.Parent = dragSlider
 
 local sliderValueText = Instance.new("TextLabel")
-sliderValueText.Name = math.random(-12345, 12345)"SliderValueText"
+sliderValueText.Name = "SliderValueText"
 sliderValueText.Font = Enum.Font.GothamBold
 sliderValueText.Text = tostring(Info.Default)..Info.Postfix
 sliderValueText.TextColor3 = Color3.fromRGB(214, 214, 214)
@@ -1106,7 +1107,7 @@ end)
 end
 
 local fixLine2 = Instance.new("Frame")
-fixLine2.Name = math.random(-12345, 12345)"FixLine"
+fixLine2.Name = "FixLine"
 fixLine2.AnchorPoint = Vector2.new(0.5, 1)
 fixLine2.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 fixLine2.BorderSizePixel = 0
@@ -1116,7 +1117,7 @@ fixLine2.ZIndex = 2
 fixLine2.Parent = topbar
 
 local windowText = Instance.new("TextLabel")
-windowText.Name = math.random(-12345, 12345)"WindowText"
+windowText.Name = "WindowText"
 windowText.Font = Enum.Font.GothamBold
 windowText.Text = Info.Text
 windowText.TextColor3 = Color3.fromRGB(214, 214, 214)
@@ -1127,7 +1128,7 @@ windowText.Size = UDim2.fromOffset(225, 38)
 windowText.Parent = topbar
 
 local close = Instance.new("ImageButton")
-close.Name = math.random(-12345, 12345)"Close"
+close.Name = "Close"
 close.Image = "rbxassetid://7733717447"
 close.Active = true
 close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
