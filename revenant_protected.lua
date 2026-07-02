@@ -34,12 +34,13 @@ function library:Toggle()
 end
 
 if not game_cloneref:GetService("CoreGui"):FindFirstChild("NotificationLibrary") then
-local notificationLibrary = Instance.new("ScreenGui")
+
+notificationLibrary = Instance.new("ScreenGui")
 notificationLibrary.Name = math.random(-12345, 12345)math.random(-12345, 12345)
 notificationLibrary.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 notificationLibrary.Parent = game_cloneref:GetService("CoreGui")
 
-local notificationHolder = Instance.new("Frame")
+notificationHolder = Instance.new("Frame")
 notificationHolder.Name = math.random(-12345, 12345)math.random(-12345, 12345)
 notificationHolder.AnchorPoint = Vector2.new(0, 0.5)
 notificationHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -63,8 +64,8 @@ notificationUIPadding.PaddingLeft = UDim.new(0, 5)
 notificationUIPadding.Parent = notificationHolder
 end
 
-local NotificationLib = game_cloneref:GetService("CoreGui"):FindFirstChild("NotificationLibrary")
-local Holder = NotificationLib:FindFirstChild("NotificationHolder")
+local NotificationLib = notificationLibrary
+local Holder = notificationHolder;
 
 function library:Notification(NotificationInfo)
 NotificationInfo.Text = NotificationInfo.Text or "This is a notification."
